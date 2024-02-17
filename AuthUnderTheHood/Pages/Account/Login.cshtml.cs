@@ -10,7 +10,6 @@ namespace AuthUnderTheHood.Pages.Account
     {
         [BindProperty]
         public Credential Credential { get; set; } = new Credential();
-        public bool RememberMe { get; set; }
         public void OnGet()
         {
         }
