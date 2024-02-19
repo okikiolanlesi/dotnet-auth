@@ -1,0 +1,35 @@
+﻿@page
+@model AuthWebApp.Pages.Account.AuthenticatorWithMFASetupModel
+@{
+}
+
+<h3>Step 1: </h3>
+<div>
+    <p>Please scan the qr code or enter the key into your authenticator app</p>
+    <p>Key: @Model.SetupMFAViewModel.Key</p>
+    <p>
+        <img src="@string.Format("data:image/png;base64,{0}", Model.SetupMFAViewModel.QRCodeBytes != null ? Convert.ToBase64String(Model.SetupMFAViewModel.QRCodeBytes) : string.Empty)"
+            width="300" height="300" />
+    </p>
+    <form method="post" asp-page-handler="ResetKey">
+        <button type="submit">Reset Key</button>
+    </form>
+
+</div>
+<br />
+<h3>Step 2</h3>
+<div>
+    <p>Enter the code from your authenticator app</p>
+    @if (Model.Succeeded)
+    {
+        <div class="alert alert-success">Authenticator is successfully setup</div>
+    }
+    <div class="text-danger" asp-validation-summary="All"></div>
+    <form method="post">
+        <div>
+            <input asp-for="SetupMFAViewModel.Key" type="hidden" />
+            <input asp-for="SetupMFAViewModel.QRCodeBytes" type="hidden" />
+            <input asp-for="SetupMFAViewModel.SecurityCode" />
+            <button type="submit">Submit</button>
+        </div>
+    </form>

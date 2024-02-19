@@ -23,7 +23,9 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
     options.User.RequireUniqueEmail = true;
     options.SignIn.RequireConfirmedEmail = true;
 
+    // AddDefaultTokenProviders() needs to be called when we need to generate a token for a user e.g reset password, confirm email, two factor auth, etc.
 }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
 
 builder.Services.ConfigureApplicationCookie(options =>
 {

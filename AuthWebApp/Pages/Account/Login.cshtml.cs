@@ -34,6 +34,10 @@ namespace AuthWebApp.Pages.Account
                     {
                         return RedirectToPage("/Index");
                     }
+                    else if (result.RequiresTwoFactor)
+                    {
+                        return RedirectToPage("/Account/LoginTwoFactor", new { Credential.RememberMe, ReturnUrl = "/Index" });
+                    }
                     else if (result.IsLockedOut)
                     {
                         ModelState.AddModelError("Login", "Your account is locked out");
