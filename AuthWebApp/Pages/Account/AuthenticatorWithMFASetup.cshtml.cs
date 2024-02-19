@@ -37,8 +37,6 @@ namespace AuthWebApp.Pages.Account
                 }
                 SetupMFAViewModel.Key = key ?? string.Empty;
                 SetupMFAViewModel.QRCodeBytes = GenerateQRCodeBytes("Test Auth App", SetupMFAViewModel.Key, user.Email ?? string.Empty);
-
-                System.Console.WriteLine(SetupMFAViewModel.QRCodeBytes.Length + " bytes========================>");
             }
             return Page();
         }
@@ -55,8 +53,6 @@ namespace AuthWebApp.Pages.Account
 
                 SetupMFAViewModel.Key = key ?? string.Empty;
                 SetupMFAViewModel.QRCodeBytes = GenerateQRCodeBytes("Test Auth App", SetupMFAViewModel.Key, user.Email ?? string.Empty);
-
-                System.Console.WriteLine(SetupMFAViewModel.QRCodeBytes.Length + " bytes========================>");
             }
             return RedirectToPage("/Account/AuthenticatorWithMFASetup");
         }
