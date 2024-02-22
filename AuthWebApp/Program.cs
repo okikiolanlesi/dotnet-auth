@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-
+builder.Services.AddControllers();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -26,7 +26,11 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
     // AddDefaultTokenProviders() needs to be called when we need to generate a token for a user e.g reset password, confirm email, two factor auth, etc.
 }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
-
+builder.Services.AddAuthentication().AddGoogle(options =>
+{
+    options.ClientId = builder.Configuration["Google:ClientId"] ?? string.Empty;
+    options.ClientSecret = builder.Configuration["Google:ClientSecret"] ?? string.Empty;
+});
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Account/Login";
@@ -51,5 +55,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
+app.MapControllers();
 
 app.Run();
